@@ -57,7 +57,7 @@ public final class Items {
 
                         TestableItem match = null;
                         for (TestableItem item : REGISTRY.values()) {
-                            if (item.matches(key.getItem())) {
+                            if (item.matches(key.getItem()) && HashedItem.of(item.getItem()).equals(key)) {
                                 match = item;
                                 break;
                             }
@@ -388,9 +388,6 @@ public final class Items {
         if (itemStack == null) {
             return null;
         }
-
-        if (!(itemStack instanceof TestableItem))
-            return null;
 
         return CACHE.get(HashedItem.of(itemStack)).map(Items::getOrWrap).orElse(null);
     }
