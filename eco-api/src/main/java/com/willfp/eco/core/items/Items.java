@@ -389,6 +389,7 @@ public final class Items {
             return null;
         }
 
+        System.out.println("Hash for " + itemStack + " * " + itemStack.getType() + ": " + HashedItem.of(itemStack).hashCode() + " where HashedItem is " + HashedItem.of(itemStack).getClass());
         return CACHE.get(HashedItem.of(itemStack)).map(Items::getOrWrap).orElse(null);
     }
 
