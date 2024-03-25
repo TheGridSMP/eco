@@ -13,8 +13,7 @@ class AntigriefIridiumSkyblock : AntigriefIntegration {
         player: Player,
         block: Block
     ): Boolean {
-        val api = IridiumSkyblockAPI.getInstance()
-
+        val api = IridiumSkyblockAPI.getInstance() ?: return true
         return api.getIslandPermission(api.getIslandViaLocation(block.location).orElse(null) ?: return true, api.getUser(player), PermissionType.BLOCK_BREAK)
     }
 
@@ -22,8 +21,7 @@ class AntigriefIridiumSkyblock : AntigriefIntegration {
         player: Player,
         location: Location
     ): Boolean {
-        val api = IridiumSkyblockAPI.getInstance()
-
+        val api = IridiumSkyblockAPI.getInstance() ?: return true
         return api.getIslandPermission(api.getIslandViaLocation(location).orElse(null) ?: return true, api.getUser(player), PermissionType.BLOCK_BREAK)
     }
 
@@ -31,8 +29,7 @@ class AntigriefIridiumSkyblock : AntigriefIntegration {
         player: Player,
         block: Block
     ): Boolean {
-        val api = IridiumSkyblockAPI.getInstance()
-
+        val api = IridiumSkyblockAPI.getInstance() ?: return true
         return api.getIslandPermission(api.getIslandViaLocation(block.location).orElse(null) ?: return true, api.getUser(player), PermissionType.BLOCK_PLACE)
     }
 
@@ -40,7 +37,7 @@ class AntigriefIridiumSkyblock : AntigriefIntegration {
         player: Player,
         victim: LivingEntity
     ): Boolean {
-        val api = IridiumSkyblockAPI.getInstance()
+        val api = IridiumSkyblockAPI.getInstance() ?: return true
 
         return when (victim) {
             is Player -> api.getIslandViaLocation(victim.location).orElse(null) != null
