@@ -25,6 +25,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
+import java.util.Objects
 import kotlin.experimental.and
 import kotlin.experimental.inv
 import kotlin.experimental.or
@@ -254,11 +255,6 @@ class EcoFastItemStack(
         return other.hashCode() == this.hashCode()
     }
 
-    override fun hashCode(): Int {
-        @Suppress("RedundantSuppression", "UNNECESSARY_SAFE_CALL")
-        return (handle.getTag()?.hashCode() ?: (0b00010101 * 31 + Item.getId(handle.getItem()))) + bukkit.getType().toString().length;
-    }
-
     internal fun apply() {
         if (handle.hasTag()) {
             handle.getTag()?.setPdc(this.pdc)
@@ -273,6 +269,20 @@ class EcoFastItemStack(
 
     override fun unwrap(): org.bukkit.inventory.ItemStack {
         return bukkit
+    }
+
+    override fun hashCode(): Int {
+        var result = handle.getTag()?.hashCode() ?: 1
+        result = 31 * result + Item.getId(handle.getItem())
+
+        val custom = com.willfp.eco.core.items.Items.getCustomItem(bukkit)
+
+        if (custom != null) {
+            result = 31 * result + custom.key.toString().hashCode()
+        }
+
+        result = 31 * result + type.hashCode()
+        return result
     }
 }
 
