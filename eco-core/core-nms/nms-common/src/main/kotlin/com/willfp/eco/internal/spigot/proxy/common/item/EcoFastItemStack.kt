@@ -274,13 +274,7 @@ class EcoFastItemStack(
     override fun hashCode(): Int {
         var result = handle.getTag()?.hashCode() ?: 1
         result = 31 * result + Item.getId(handle.getItem())
-
-        val custom = com.willfp.eco.core.items.Items.getCustomItem(bukkit)
-
-        if (custom != null) {
-            result = 31 * result + custom.key.toString().hashCode()
-        }
-
+        result = 31 * result + baseTag.hashCode()
         result = 31 * result + type.hashCode()
         return result
     }
