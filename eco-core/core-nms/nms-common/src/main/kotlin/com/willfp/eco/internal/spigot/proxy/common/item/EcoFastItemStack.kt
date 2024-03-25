@@ -256,7 +256,7 @@ class EcoFastItemStack(
 
     override fun hashCode(): Int {
         @Suppress("RedundantSuppression", "UNNECESSARY_SAFE_CALL")
-        return handle.getTag()?.hashCode() ?: (0b00010101 * 31 + Item.getId(handle.getItem()))
+        return (handle.getTag()?.hashCode() ?: (0b00010101 * 31 + Item.getId(handle.getItem()))) + bukkit.getType().toString().length();
     }
 
     internal fun apply() {
